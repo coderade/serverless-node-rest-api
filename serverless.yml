@@ -1,0 +1,31 @@
+service: serverless-node-rest-api
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:OtherPermissions
+      Resource: "arn:aws:dynamodb:oversimplified:PetTable"
+
+  resources:
+    Resources:
+      PetTable:
+        Type: AWS::DynamoDB::Table
+        DeletionPolicy: Retain
+        Properties:
+          AttributeDefinitions:
+            -
+              AttributeName: id
+              AttributeType: S
+          KeySchema:
+            -
+              AttributeName: id
+              AttributeType: HASH
+          ProvisionedThroughput:
+            ReadCapacitUnits: 1
+            WriteCapacitUnits: 1
+          TableName: PetTable

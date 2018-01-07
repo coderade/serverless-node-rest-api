@@ -36,7 +36,14 @@ functions:
           path: games
           method: get
           cors: true
-
+  
+  delete:
+    handler: games/delete.delete
+    events:
+      - http:
+          path: games/{id}
+          method: delete
+          cors: true
 
 resources:
   Resources:

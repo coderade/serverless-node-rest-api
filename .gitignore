@@ -8,3 +8,6 @@ jspm_packages
 # IDE directories
 
 .idea
+
+# Unneded files
+endpoints.md

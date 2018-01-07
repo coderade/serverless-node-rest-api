@@ -12,7 +12,8 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient();
 module.exports.create = (event, context, callback) => {
     const timestamp = new Date().getTime();
     const data = JSON.parse(event.body);
-    if (typeof data.gameName !== 'string' || typeof data.gameDeveloper !== 'string') {
+
+    if (typeof data.gameName !== 'string' || typeof data.gameDeveloper !== 'string' || typeof data.gamePlatforms !== 'object') {
         console.error('Validation Failed');
         callback(new Error('Couldn\'t create the game item.'));
         return;
@@ -24,6 +25,7 @@ module.exports.create = (event, context, callback) => {
             id: uuid.v1(),
             gameName: data.gameName,
             gameDeveloper: data.gameDeveloper,
+            gamePlatforms: data.gamePlatforms,
             createdAt: timestamp,
             updatedAt: timestamp,
         },
@@ -43,6 +45,6 @@ module.exports.create = (event, context, callback) => {
             statusCode: 200,
             body: JSON.stringify(params.Item),
         };
-    callback(null, response);
-});
+        callback(null, response);
+    });
 };

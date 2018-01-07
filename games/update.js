@@ -13,7 +13,7 @@ module.exports.update = (event, context, callback) => {
     const data = JSON.parse(event.body);
 
     // validation
-    if (typeof data.gameName !== 'string' || typeof data.gameDeveloper !== 'string') {
+    if (typeof data.gameName !== 'string' || typeof data.gameDeveloper !== 'string' || typeof data.gamePlatforms !== 'object') {
         console.error('Validation Failed');
         callback(new Error('Couldn\'t update the todo item.'));
         return;
@@ -27,10 +27,11 @@ module.exports.update = (event, context, callback) => {
         ExpressionAttributeValues: {
             ':gameName': data.gameName,
             ':gameDeveloper': data.gameDeveloper,
+            ':gamePlatforms': data.gamePlatforms,
             ':checked': data.checked,
             ':updatedAt': timestamp,
         },
-        UpdateExpression: 'SET gameName = :gameName, gameDeveloper = :gameDeveloper, updatedAt = :updatedAt',
+        UpdateExpression: 'SET gameName = :gameName, gameDeveloper = :gameDeveloper, gamePlatforms = :gamePlatforms, updatedAt = :updatedAt',
         ReturnValues: 'ALL_NEW',
     };
 

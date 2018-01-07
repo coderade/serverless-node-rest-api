@@ -21,6 +21,23 @@ functions:
           method: post
           cors: true
 
+  get:
+    handler: games/get.get
+    events:
+      - http:
+          path: games/{id}
+          method: get
+          cors: true
+
+  list:
+    handler: games/list.list
+    events:
+      - http:
+          path: games
+          method: get
+          cors: true
+
+
 resources:
   Resources:
     GamesTable:
